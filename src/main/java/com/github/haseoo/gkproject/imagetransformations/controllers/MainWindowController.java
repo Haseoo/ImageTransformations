@@ -1,11 +1,13 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.FileDialogOperation;
+import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotate;
 import exceptions.NoFileExtensionException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -28,11 +30,14 @@ public class MainWindowController {
     @FXML
     private MenuItem saveImage;
     @FXML
+    private MenuItem restoreOrginal;
+    @FXML
     private Menu editMenu;
     @FXML
     private ImageView imageView;
 
     private Image currentImage;
+    private Image originalImage;
 
     @FXML
     public void onOpen() {
@@ -67,12 +72,29 @@ public class MainWindowController {
         imageView.setImage(currentImage);
     }
 
+    @FXML
+    void onRotate() {
+        TextInputDialog textInputDialog = new TextInputDialog("Enter rotation in degrees");
+        double angle = Math.toRadians(Double.parseDouble(textInputDialog.showAndWait().orElse("0.0")));
+        currentImage = ImageRotate.rotateImage(currentImage, angle);
+        imageView.setImage(currentImage);
+
+    }
+
+    @FXML
+    void onRestore() {
+        currentImage = originalImage;
+        imageView.setImage(currentImage);
+    }
+
     private void readImage(File image) {
         String imageUri = image.toURI().toString();
         log.info(String.format(FILE_OPEN_STRING_FORMAT, imageUri));
         currentImage = new Image(imageUri);
+        originalImage = new Image(imageUri);
         imageView.setImage(currentImage);
         saveImage.setDisable(false);
+        restoreOrginal.setDisable(false);
         editMenu.setDisable(false);
     }
 

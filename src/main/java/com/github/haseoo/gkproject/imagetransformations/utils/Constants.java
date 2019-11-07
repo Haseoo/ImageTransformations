@@ -11,4 +11,5 @@ public class Constants {
     public static final String FILE_SAVE_STRING_FORMAT = "Saving file %s, extension %s";
     public static final String FILE_FILTER_NAME = "Image files";
     public static final String EXTENSION_SEPARATOR = ".";
+    public static final int NO_OFFSET = 0;
 }

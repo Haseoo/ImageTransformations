@@ -33,6 +33,9 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#onTest" text="Test"/>
                         <MenuItem fx:id="resize" mnemonicParsing="false" text="Resize"/>
+                        <MenuItem mnemonicParsing="false" onAction="#onRotate" text="Rotate"/>
+                        <MenuItem fx:id="restoreOrginal" disable="true" mnemonicParsing="false" onAction="#onRestore"
+                                  text="Restore orginal image"/>
                     </items>
                 </Menu>
             </menus>
