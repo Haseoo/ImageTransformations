@@ -1,20 +1,18 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.FileDialogOperation;
-import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotate;
+import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotation;
+import com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils;
+import com.github.haseoo.gkproject.imagetransformations.utils.SimpleResize;
 import exceptions.NoFileExtensionException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,22 +20,23 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
-import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getExtensionByStringHandling;
-import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getFileExtensions;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.*;
 
 @Slf4j
 public class MainWindowController {
     @FXML
     private MenuItem saveImage;
     @FXML
-    private MenuItem restoreOrginal;
+    private MenuItem restoreOriginal;
     @FXML
     private Menu editMenu;
     @FXML
     private ImageView imageView;
 
     private Image currentImage;
+    private Image rotatableImage;
     private Image originalImage;
+    private double angle;
 
     @FXML
     public void onOpen() {
@@ -56,35 +55,32 @@ public class MainWindowController {
     }
 
     @FXML
-    public void onTest() { /*TO JEST TYLKO TEST*/
-        WritableImage newImage = new WritableImage((int) currentImage.getWidth(), (int) currentImage.getHeight());
-        val oldPixels = currentImage.getPixelReader();
-        val newPixels = newImage.getPixelWriter();
-        for (int x = 0; x < currentImage.getWidth(); x++) {
-            for (int y = 0; y < currentImage.getHeight(); y++) {
-                Color oldColor = oldPixels.getColor(x, y);
-                double avg = (oldColor.getRed() + oldColor.getBlue() + oldColor.getGreen()) / 3.0;
-                Color newColor = new Color(avg, avg, avg, oldColor.getOpacity());
-                newPixels.setColor(x, y, newColor);
-            }
-        }
-        currentImage = newImage;
-        imageView.setImage(currentImage);
+    void onResize() throws IOException {
+        JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH)
+                .getScaleRatio()
+                .ifPresent(ratio -> {
+                    currentImage = SimpleResize.resizeImage(currentImage, ratio.getX(), ratio.getY());
+                    rotatableImage = SimpleResize.resizeImage(rotatableImage, ratio.getX(), ratio.getY());
+                    imageView.setImage(currentImage);
+        });
     }
 
     @FXML
-    void onRotate() {
-        TextInputDialog textInputDialog = new TextInputDialog("Enter rotation in degrees");
-        double angle = Math.toRadians(Double.parseDouble(textInputDialog.showAndWait().orElse("0.0")));
-        currentImage = ImageRotate.rotateImage(currentImage, angle);
-        imageView.setImage(currentImage);
-
+    void onRotate() throws IOException {
+        JavaFXUtils.<RotateDialogController>displayInputDialog(ROTATE_DIALOG_FXML_PATH)
+                .getRotation()
+                .ifPresent(rotation -> {
+                    angle += rotation;
+                    currentImage = ImageRotation.rotateImage(rotatableImage, angle);
+                    imageView.setImage(currentImage);
+                });
     }
 
     @FXML
     void onRestore() {
         currentImage = originalImage;
         imageView.setImage(currentImage);
+        angle = 0.0;
     }
 
     private void readImage(File image) {
@@ -92,9 +88,10 @@ public class MainWindowController {
         log.info(String.format(FILE_OPEN_STRING_FORMAT, imageUri));
         currentImage = new Image(imageUri);
         originalImage = new Image(imageUri);
+        rotatableImage = new Image(imageUri);
         imageView.setImage(currentImage);
         saveImage.setDisable(false);
-        restoreOrginal.setDisable(false);
+        restoreOriginal.setDisable(false);
         editMenu.setDisable(false);
     }
 

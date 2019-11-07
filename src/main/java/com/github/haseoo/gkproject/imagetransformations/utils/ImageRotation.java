@@ -2,6 +2,7 @@ package com.github.haseoo.gkproject.imagetransformations.utils;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.val;
@@ -9,7 +10,7 @@ import lombok.val;
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.NO_OFFSET;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ImageRotate {
+public class ImageRotation {
     public static Image rotateImage(Image image, double angle) {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
@@ -30,6 +31,8 @@ public class ImageRotate {
                 if (originalPoint.getX() > 0 && originalPoint.getY() > 0 &&
                         originalPoint.getX() < image.getWidth() && originalPoint.getY() < image.getHeight()) {
                     newPixels.setColor(x, y, oldPixels.getColor(originalPoint.getX(), originalPoint.getY()));
+                } else {
+                    newPixels.setColor(x, y, Color.WHITE);
                 }
             }
         }
