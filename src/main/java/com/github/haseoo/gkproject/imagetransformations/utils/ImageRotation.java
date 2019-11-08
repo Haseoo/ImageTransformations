@@ -2,7 +2,6 @@ package com.github.haseoo.gkproject.imagetransformations.utils;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.val;
@@ -31,8 +30,6 @@ public class ImageRotation {
                 if (originalPoint.getX() > 0 && originalPoint.getY() > 0 &&
                         originalPoint.getX() < image.getWidth() && originalPoint.getY() < image.getHeight()) {
                     newPixels.setColor(x, y, oldPixels.getColor(originalPoint.getX(), originalPoint.getY()));
-                } else {
-                    newPixels.setColor(x, y, Color.WHITE);
                 }
             }
         }

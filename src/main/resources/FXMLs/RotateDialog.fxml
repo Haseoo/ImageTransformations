@@ -1,62 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.RotateDialogController">
-  <children>
-      <GridPane hgap="10.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
-          <ColumnConstraints hgrow="SOMETIMES" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Rotation in degrees">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></Label>
-            <TextField fx:id="input" GridPane.columnIndex="1" />
-            <Label text="Direction" GridPane.rowIndex="1" />
-            <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <RadioButton fx:id="leftToggle" mnemonicParsing="false" selected="true" text="Left">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="direction" />
-                     </toggleGroup></RadioButton>
-                  <RadioButton fx:id="rightToggle" mnemonicParsing="false" text="Right" toggleGroup="$direction" />
-               </children>
-            </VBox>
-         </children>
-      </GridPane>
-    <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
-      <children>
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#onApply" text="Apply" />
-      </children>
-         <padding>
-            <Insets top="15.0" />
-         </padding>
-    </HBox>
-  </children>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.RotateDialogController">
+    <children>
+        <GridPane hgap="10.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label text="Rotation in degrees">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </Label>
+                <TextField fx:id="input" GridPane.columnIndex="1"/>
+                <Label text="Direction" GridPane.rowIndex="1"/>
+                <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <RadioButton fx:id="leftToggle" mnemonicParsing="false" selected="true" text="Left">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="direction"/>
+                            </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rightToggle" mnemonicParsing="false" text="Right" toggleGroup="$direction"/>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+        <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
+            <children>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onApply" text="Apply"/>
+            </children>
+            <padding>
+                <Insets top="15.0"/>
+            </padding>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
 </VBox>

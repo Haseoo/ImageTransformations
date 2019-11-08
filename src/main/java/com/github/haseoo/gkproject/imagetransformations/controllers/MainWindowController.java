@@ -1,9 +1,9 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.FileDialogOperation;
+import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotation;
 import com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils;
-import com.github.haseoo.gkproject.imagetransformations.utils.SimpleResize;
 import exceptions.NoFileExtensionException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -20,7 +20,9 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
-import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.*;
+import static com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils.copyImage;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getExtensionByStringHandling;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getFileExtensions;
 
 @Slf4j
 public class MainWindowController {
@@ -59,10 +61,10 @@ public class MainWindowController {
         JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH)
                 .getScaleRatio()
                 .ifPresent(ratio -> {
-                    currentImage = SimpleResize.resizeImage(currentImage, ratio.getX(), ratio.getY());
-                    rotatableImage = SimpleResize.resizeImage(rotatableImage, ratio.getX(), ratio.getY());
+                    currentImage = ImageResize.simpleResize(currentImage, ratio);
+                    rotatableImage = ImageResize.simpleResize(rotatableImage, ratio);
                     imageView.setImage(currentImage);
-        });
+                });
     }
 
     @FXML
@@ -81,6 +83,7 @@ public class MainWindowController {
         currentImage = originalImage;
         imageView.setImage(currentImage);
         angle = 0.0;
+        rotatableImage = copyImage(originalImage);
     }
 
     private void readImage(File image) {

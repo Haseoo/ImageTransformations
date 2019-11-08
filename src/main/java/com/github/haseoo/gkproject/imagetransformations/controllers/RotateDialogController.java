@@ -8,7 +8,8 @@ import javafx.stage.Stage;
 
 import java.util.Optional;
 
-import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.INVALID_INPUT_ALERT_TEXT;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.IS_A_DECIMAL_REGEX;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class RotateDialogController {
@@ -23,6 +24,7 @@ public class RotateDialogController {
     void initialize() {
         makeTextFieldDecimal(input);
     }
+
     @FXML
     void onApply() {
         try {
@@ -30,8 +32,8 @@ public class RotateDialogController {
             if (rightToggle.isSelected()) {
                 alpha = -alpha;
             }
-            ((Stage)input.getScene().getWindow()).close();
-        }catch (IllegalArgumentException e) {
+            ((Stage) input.getScene().getWindow()).close();
+        } catch (IllegalArgumentException e) {
             Alert alert = new Alert(ERROR, INVALID_INPUT_ALERT_TEXT);
             alert.showAndWait();
         }

@@ -25,20 +25,28 @@ public class ResizeDialogController {
         makeTextFieldNumeric(yRatio);
         makeTextFieldNumeric(xRatio);
     }
+
     @FXML
     void onApply() {
         try {
             ratio = new Point(Integer.parseInt(xRatio.getText()),
-                              Integer.parseInt(yRatio.getText()));
-            ((Stage)xRatio.getScene().getWindow()).close();
-        }catch (IllegalArgumentException e) {
+                    Integer.parseInt(yRatio.getText()));
+            ((Stage) xRatio.getScene().getWindow()).close();
+            if (invalidRatio())  {
+                throw new IllegalArgumentException();
+            }
+        } catch (IllegalArgumentException e) {
             Alert alert = new Alert(ERROR, INVALID_INPUT_ALERT_TEXT);
             alert.showAndWait();
         }
     }
 
-    public Optional<Point> getScaleRatio() {
+    Optional<Point> getScaleRatio() {
         return Optional.ofNullable(ratio);
+    }
+
+    private boolean invalidRatio() {
+        return ratio.getX() <= 0 || ratio.getY() <= 0;
     }
 
     private static void makeTextFieldNumeric(TextField textField) {
