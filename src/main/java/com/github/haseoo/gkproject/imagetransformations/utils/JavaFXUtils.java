@@ -31,15 +31,15 @@ public class JavaFXUtils {
     }
 
     public static Image copyImage(Image source) {
-        return createImage(new Point((int) source.getWidth(), (int) source.getHeight()),
+        return createImage(new Pair<>((int) source.getWidth(), (int) source.getHeight()),
                 point -> source.getPixelReader().getColor(point.getX(), point.getY()));
     }
 
-    public static Image createImage(Point dimensions, Function<Point, Color> calculateColor) {
+    public static Image createImage(Pair<Integer> dimensions, Function<Pair<Integer>, Color> calculateColor) {
         WritableImage image = new WritableImage(dimensions.getWidth(), dimensions.getHeight());
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
-                image.getPixelWriter().setColor(x, y, calculateColor.apply(new Point(x, y)));
+                image.getPixelWriter().setColor(x, y, calculateColor.apply(new Pair<>(x, y)));
             }
         }
         return image;

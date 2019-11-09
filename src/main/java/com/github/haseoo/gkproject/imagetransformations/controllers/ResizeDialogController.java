@@ -1,6 +1,6 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
-import com.github.haseoo.gkproject.imagetransformations.utils.Point;
+import com.github.haseoo.gkproject.imagetransformations.utils.Pair;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -17,7 +17,7 @@ public class ResizeDialogController {
     @FXML
     private TextField yRatio;
 
-    private Point ratio;
+    private Pair<Integer> ratio;
 
     @FXML
     void initialize() {
@@ -29,7 +29,7 @@ public class ResizeDialogController {
     @FXML
     void onApply() {
         try {
-            ratio = new Point(Integer.parseInt(xRatio.getText()),
+            ratio = new Pair<>(Integer.parseInt(xRatio.getText()),
                     Integer.parseInt(yRatio.getText()));
             ((Stage) xRatio.getScene().getWindow()).close();
             if (invalidRatio())  {
@@ -41,7 +41,7 @@ public class ResizeDialogController {
         }
     }
 
-    Optional<Point> getScaleRatio() {
+    Optional<Pair> getScaleRatio() {
         return Optional.ofNullable(ratio);
     }
 
