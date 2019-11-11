@@ -61,8 +61,8 @@ public class MainWindowController {
         JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH)
                 .getScaleRatio()
                 .ifPresent(ratio -> {
-                    currentImage = ImageResize.simpleResize(currentImage, ratio);
-                    rotatableImage = ImageResize.simpleResize(rotatableImage, ratio);
+                    currentImage = ImageResize.bilinearResize(currentImage, ratio);
+                    rotatableImage = ImageResize.bilinearResize(rotatableImage, ratio);
                     imageView.setImage(currentImage);
                 });
     }

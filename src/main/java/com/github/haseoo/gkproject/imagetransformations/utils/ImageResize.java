@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import static com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils.createImage;
+import static com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils.createImageUsingBilinearInterpolation;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageResize {
@@ -24,5 +25,9 @@ public class ImageResize {
     private static Pair<Double> calculateNewScale(Pair<Double> oldDimensions, Pair<Integer> newDimensions) {
         return new Pair<> (oldDimensions.getWidth() / (double) newDimensions.getWidth(),
                             oldDimensions.getHeight() / (double) newDimensions.getHeight());
+    }
+    public static Image bilinearResize(Image source, Pair<Integer> scale){
+        Pair newDimensions = calculateNewDimensions(source, scale.getWidth(), scale.getHeight());
+        return createImageUsingBilinearInterpolation(source, newDimensions);
     }
 }
