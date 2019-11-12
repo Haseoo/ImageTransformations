@@ -1,7 +1,6 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm;
-import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.Pair;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -17,7 +16,6 @@ import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class ResizeDialogController {
-    private static Map<Toggle, ImageResizeAlgorithm> resizeAlgorithmMap;
     @FXML
     private TextField xRatio;
     @FXML
@@ -30,6 +28,7 @@ public class ResizeDialogController {
     private ToggleButton simpleResizeRadio;
 
     private Pair<Integer> ratio;
+    private Map<Toggle, ImageResizeAlgorithm> resizeAlgorithmMap;
 
     @FXML
     void initialize() {
@@ -46,7 +45,7 @@ public class ResizeDialogController {
             ratio = new Pair<>(Integer.parseInt(xRatio.getText()),
                     Integer.parseInt(yRatio.getText()));
             ((Stage) xRatio.getScene().getWindow()).close();
-            if (invalidRatio())  {
+            if (invalidRatio()) {
                 throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
@@ -54,6 +53,7 @@ public class ResizeDialogController {
             alert.showAndWait();
         }
     }
+
     @FXML
     void onCancel() {
         ((Stage) xRatio.getScene().getWindow()).close();

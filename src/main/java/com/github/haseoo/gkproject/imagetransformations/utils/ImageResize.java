@@ -14,19 +14,20 @@ public class ImageResize {
         Pair<Double> newScale = calculateNewScale(new Pair<>(source.getWidth(), source.getHeight()), newDimensions);
         return createImage(newDimensions,
                 point -> source.getPixelReader().getColor((int) (point.getX() * newScale.getX()),
-                                                          (int) (point.getY() * newScale.getY())));
+                        (int) (point.getY() * newScale.getY())));
     }
 
     private static Pair<Integer> calculateNewDimensions(Image source, double scaleX, double scaleY) {
         return new Pair<>((int) (source.getWidth() * scaleX / 100.0),
-                          (int) (source.getHeight() * scaleY / 100.0));
+                (int) (source.getHeight() * scaleY / 100.0));
     }
 
     private static Pair<Double> calculateNewScale(Pair<Double> oldDimensions, Pair<Integer> newDimensions) {
-        return new Pair<> (oldDimensions.getWidth() / (double) newDimensions.getWidth(),
-                            oldDimensions.getHeight() / (double) newDimensions.getHeight());
+        return new Pair<>(oldDimensions.getWidth() / (double) newDimensions.getWidth(),
+                oldDimensions.getHeight() / (double) newDimensions.getHeight());
     }
-    public static Image bilinearResize(Image source, Pair<Integer> scale){
+
+    public static Image bilinearResize(Image source, Pair<Integer> scale) {
         Pair newDimensions = calculateNewDimensions(source, scale.getWidth(), scale.getHeight());
         return createImageUsingBilinearInterpolation(source, newDimensions);
     }
