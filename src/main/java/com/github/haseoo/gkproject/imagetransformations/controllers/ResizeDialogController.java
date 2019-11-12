@@ -1,27 +1,41 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
+import com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm;
+import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.Pair;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.BILINEAR_RESIZE;
+import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.SIMPLE_RESIZE;
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
 public class ResizeDialogController {
+    private static Map<Toggle, ImageResizeAlgorithm> resizeAlgorithmMap;
     @FXML
     private TextField xRatio;
     @FXML
     private TextField yRatio;
+    @FXML
+    private ToggleGroup resizeAlgorithm;
+    @FXML
+    private ToggleButton bilinearRadio;
+    @FXML
+    private ToggleButton simpleResizeRadio;
 
     private Pair<Integer> ratio;
 
     @FXML
     void initialize() {
-
+        resizeAlgorithmMap = new HashMap<>();
+        resizeAlgorithmMap.put(bilinearRadio, BILINEAR_RESIZE);
+        resizeAlgorithmMap.put(simpleResizeRadio, SIMPLE_RESIZE);
         makeTextFieldNumeric(yRatio);
         makeTextFieldNumeric(xRatio);
     }
@@ -40,9 +54,17 @@ public class ResizeDialogController {
             alert.showAndWait();
         }
     }
+    @FXML
+    void onCancel() {
+        ((Stage) xRatio.getScene().getWindow()).close();
+    }
 
-    Optional<Pair> getScaleRatio() {
+    Optional<Pair<Integer>> getScaleRatio() {
         return Optional.ofNullable(ratio);
+    }
+
+    ImageResizeAlgorithm getAlgorithm() {
+        return resizeAlgorithmMap.get(resizeAlgorithm.getSelectedToggle());
     }
 
     private boolean invalidRatio() {

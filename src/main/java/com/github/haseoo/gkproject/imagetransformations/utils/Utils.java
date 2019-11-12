@@ -16,7 +16,7 @@ public class Utils {
         return Objects.requireNonNull(Main.class.getClassLoader().getResource(relativePath));
     }
 
-    public static String[] getFileExtensions() {
+    public static String[] getOpenFileExtensions() {
         return new String[]{"*.png", "*.jpg", "*.jpeg", "*.bmp"};
     }
 

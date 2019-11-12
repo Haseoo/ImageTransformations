@@ -1,7 +1,6 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.FileDialogOperation;
-import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotation;
 import com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils;
 import exceptions.NoFileExtensionException;
@@ -22,7 +21,7 @@ import java.io.IOException;
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
 import static com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils.copyImage;
 import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getExtensionByStringHandling;
-import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getFileExtensions;
+import static com.github.haseoo.gkproject.imagetransformations.utils.Utils.getOpenFileExtensions;
 
 @Slf4j
 public class MainWindowController {
@@ -42,7 +41,7 @@ public class MainWindowController {
 
     @FXML
     public void onOpen() {
-        File image = getFileFromDialog(FileDialogOperation.OPEN);
+        File image = getFileFromDialog(FileDialogOperation.OPEN, getOpenFileExtensions());
         if (image != null) {
             readImage(image);
         }
@@ -50,7 +49,7 @@ public class MainWindowController {
 
     @FXML
     void onSave() throws IOException {
-        File dest = getFileFromDialog(FileDialogOperation.SAVE);
+        File dest = getFileFromDialog(FileDialogOperation.SAVE, new String[]{SAVE_FILE_EXTENSION});
         if (dest != null) {
             saveImage(dest);
         }
@@ -58,11 +57,12 @@ public class MainWindowController {
 
     @FXML
     void onResize() throws IOException {
-        JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH)
+        ResizeDialogController controller = JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH);
+        controller
                 .getScaleRatio()
                 .ifPresent(ratio -> {
-                    currentImage = ImageResize.bilinearResize(currentImage, ratio);
-                    rotatableImage = ImageResize.bilinearResize(rotatableImage, ratio);
+                    currentImage = controller.getAlgorithm().function.apply(rotatableImage, ratio);
+                    rotatableImage = controller.getAlgorithm().function.apply(rotatableImage, ratio);
                     imageView.setImage(currentImage);
                 });
     }
@@ -105,9 +105,9 @@ public class MainWindowController {
         ImageIO.write(bImage, extension, dest);
     }
 
-    private File getFileFromDialog(FileDialogOperation operation) {
+    private File getFileFromDialog(FileDialogOperation operation, String[] extensions) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(FILE_FILTER_NAME, getFileExtensions()));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(FILE_FILTER_NAME, extensions));
         switch (operation) {
             case OPEN:
                 return fileChooser.showOpenDialog(imageView.getScene().getWindow());

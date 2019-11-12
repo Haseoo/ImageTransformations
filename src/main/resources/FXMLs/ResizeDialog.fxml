@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.ResizeDialogController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.ResizeDialogController">
     <children>
         <GridPane hgap="10.0" vgap="10.0">
             <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label text="Width ratio in %">
                     <GridPane.margin>
-                        <Insets/>
+                        <Insets />
                     </GridPane.margin>
                 </Label>
                 <Label text="Height ratio in %" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets/>
+                        <Insets />
                     </GridPane.margin>
                 </Label>
-                <TextField GridPane.columnIndex="1" fx:id="xRatio"/>
-                <TextField fx:id="yRatio" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField GridPane.columnIndex="1" fx:id="xRatio" />
+                <TextField fx:id="yRatio" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Resize algorithm" GridPane.rowIndex="2" />
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <RadioButton fx:id="bilinearRadio" mnemonicParsing="false" selected="true" text="Bilinear">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="resizeAlgorithm" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="simpleResizeRadio" mnemonicParsing="false" text="Simple resize" toggleGroup="$resizeAlgorithm" />
+               </children>
+            </VBox>
             </children>
         </GridPane>
         <HBox alignment="CENTER" prefHeight="-1.0" prefWidth="-1.0">
             <children>
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#onApply" text="Apply"/>
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onApply" text="Apply">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin></Button>
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancel" text="Cancel">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin></Button>
             </children>
             <padding>
-                <Insets top="15.0"/>
+                <Insets top="15.0" />
             </padding>
         </HBox>
     </children>
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 </VBox>

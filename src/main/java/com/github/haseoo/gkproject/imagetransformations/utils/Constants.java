@@ -19,4 +19,5 @@ public class Constants {
     public static final String IS_A_DECIMAL_REGEX = "\\d*(\\.\\d*)?";
     public static final String REPLACEMENT_STRING = "";
     public static final String INVALID_INPUT_ALERT_TEXT = "Incorrect or empty input";
+    public static final String SAVE_FILE_EXTENSION = ".*png";
 }

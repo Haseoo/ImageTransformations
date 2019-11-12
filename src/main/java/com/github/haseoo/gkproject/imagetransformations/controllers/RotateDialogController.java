@@ -38,6 +38,10 @@ public class RotateDialogController {
             alert.showAndWait();
         }
     }
+    @FXML
+    void onCancel() {
+        ((Stage) input.getScene().getWindow()).close();
+    }
 
     public Optional<Double> getRotation() {
         return Optional.ofNullable(alpha);

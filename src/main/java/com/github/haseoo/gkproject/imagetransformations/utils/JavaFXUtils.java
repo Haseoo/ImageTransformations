@@ -20,14 +20,11 @@ import static javafx.stage.Modality.APPLICATION_MODAL;
 public class JavaFXUtils {
     public static <T> T displayInputDialog(String fxmlReactivePath) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getResourceURL(fxmlReactivePath));
-        Parent parent = fxmlLoader.load();
-        T dialogController = fxmlLoader.getController();
-        Scene scene = new Scene(parent);
         Stage stage = new Stage();
         stage.initModality(APPLICATION_MODAL);
-        stage.setScene(scene);
+        stage.setScene(new Scene(fxmlLoader.load()));
         stage.showAndWait();
-        return dialogController;
+        return fxmlLoader.getController();
     }
 
     public static Image copyImage(Image source) {
