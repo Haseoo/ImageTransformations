@@ -1,4 +1,4 @@
-package exceptions;
+package com.github.haseoo.gkproject.imagetransformations.exceptions;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

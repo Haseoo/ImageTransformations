@@ -3,7 +3,7 @@ package com.github.haseoo.gkproject.imagetransformations.controllers;
 import com.github.haseoo.gkproject.imagetransformations.enums.FileDialogOperation;
 import com.github.haseoo.gkproject.imagetransformations.utils.ImageRotation;
 import com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils;
-import exceptions.NoFileExtensionException;
+import com.github.haseoo.gkproject.imagetransformations.exceptions.NoFileExtensionException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Menu;
@@ -61,9 +61,12 @@ public class MainWindowController {
         controller
                 .getScaleRatio()
                 .ifPresent(ratio -> {
-                    currentImage = controller.getAlgorithm().function.apply(rotatableImage, ratio);
-                    rotatableImage = controller.getAlgorithm().function.apply(rotatableImage, ratio);
-                    imageView.setImage(currentImage);
+                    controller.getAlgorithm().ifPresent(function -> {
+                        currentImage = function.apply(currentImage, ratio);
+                        rotatableImage = function.apply(rotatableImage, ratio);
+                        imageView.setImage(currentImage);
+
+                    });
                 });
     }
 

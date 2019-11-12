@@ -1,14 +1,17 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
 import com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm;
+import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.Pair;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.BILINEAR_RESIZE;
 import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.SIMPLE_RESIZE;
@@ -28,13 +31,13 @@ public class ResizeDialogController {
     private ToggleButton simpleResizeRadio;
 
     private Pair<Integer> ratio;
-    private Map<Toggle, ImageResizeAlgorithm> resizeAlgorithmMap;
+    private Map<Toggle, BiFunction<Image, Pair<Integer>, Image>> resizeAlgorithmMap;
 
     @FXML
     void initialize() {
         resizeAlgorithmMap = new HashMap<>();
-        resizeAlgorithmMap.put(bilinearRadio, BILINEAR_RESIZE);
-        resizeAlgorithmMap.put(simpleResizeRadio, SIMPLE_RESIZE);
+        resizeAlgorithmMap.put(bilinearRadio, ImageResize::bilinearResize);
+        resizeAlgorithmMap.put(simpleResizeRadio, ImageResize::simpleResize);
         makeTextFieldNumeric(yRatio);
         makeTextFieldNumeric(xRatio);
     }
@@ -63,8 +66,8 @@ public class ResizeDialogController {
         return Optional.ofNullable(ratio);
     }
 
-    ImageResizeAlgorithm getAlgorithm() {
-        return resizeAlgorithmMap.get(resizeAlgorithm.getSelectedToggle());
+    Optional<BiFunction<Image, Pair<Integer>, Image>> getAlgorithm() {
+        return Optional.ofNullable(resizeAlgorithmMap.get(resizeAlgorithm.getSelectedToggle()));
     }
 
     private boolean invalidRatio() {
