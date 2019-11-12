@@ -1,6 +1,5 @@
 package com.github.haseoo.gkproject.imagetransformations.controllers;
 
-import com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm;
 import com.github.haseoo.gkproject.imagetransformations.utils.ImageResize;
 import com.github.haseoo.gkproject.imagetransformations.utils.Pair;
 import javafx.fxml.FXML;
@@ -13,8 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
-import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.BILINEAR_RESIZE;
-import static com.github.haseoo.gkproject.imagetransformations.enums.ImageResizeAlgorithm.SIMPLE_RESIZE;
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.*;
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
