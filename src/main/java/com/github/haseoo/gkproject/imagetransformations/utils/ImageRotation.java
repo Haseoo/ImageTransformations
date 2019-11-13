@@ -1,13 +1,13 @@
 package com.github.haseoo.gkproject.imagetransformations.utils;
 
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.val;
 
 import static com.github.haseoo.gkproject.imagetransformations.utils.Constants.NO_OFFSET;
 import static com.github.haseoo.gkproject.imagetransformations.utils.JavaFXUtils.createImage;
-import static javafx.scene.paint.Color.TRANSPARENT;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ImageRotation {
@@ -29,7 +29,7 @@ public class ImageRotation {
                     originalPoint.getX() < image.getWidth() && originalPoint.getY() < image.getHeight()) {
                 return oldPixels.getColor(originalPoint.getX(), originalPoint.getY());
             }
-            return TRANSPARENT;
+            return Color.WHITE;
         });
     }
 

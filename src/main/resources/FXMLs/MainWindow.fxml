@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.MainWindowController">
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.haseoo.gkproject.imagetransformations.controllers.MainWindowController">
     <center>
-        <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="400.0" minWidth="600.0" prefHeight="-1.0"
-                    prefWidth="-1.0" BorderPane.alignment="CENTER">
+        <ScrollPane fitToHeight="true" fitToWidth="true" minHeight="400.0" minWidth="600.0" prefHeight="-1.0" prefWidth="-1.0" BorderPane.alignment="CENTER">
             <content>
-                <VBox alignment="CENTER">
+                <VBox alignment="CENTER" style="-fx-background-color: #FFFFFF;">
                     <children>
-                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true"/>
+                        <ImageView fx:id="imageView" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </VBox>
             </content>
@@ -23,18 +25,16 @@
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem fx:id="openImage" mnemonicParsing="false" onAction="#onOpen" text="Open image"/>
-                        <MenuItem fx:id="saveImage" disable="true" mnemonicParsing="false" onAction="#onSave"
-                                  text="Save image"/>
-                        <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit"/>
+                        <MenuItem fx:id="openImage" mnemonicParsing="false" onAction="#onOpen" text="Open image" />
+                        <MenuItem fx:id="saveImage" disable="true" mnemonicParsing="false" onAction="#onSave" text="Save image" />
+                        <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
                     </items>
                 </Menu>
                 <Menu fx:id="editMenu" disable="true" mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem fx:id="resize" mnemonicParsing="false" onAction="#onResize" text="Resize"/>
-                        <MenuItem mnemonicParsing="false" onAction="#onRotate" text="Rotate"/>
-                        <MenuItem fx:id="restoreOriginal" disable="true" mnemonicParsing="false" onAction="#onRestore"
-                                  text="Restore orginal image"/>
+                        <MenuItem fx:id="resize" mnemonicParsing="false" onAction="#onResize" text="Resize" />
+                        <MenuItem mnemonicParsing="false" onAction="#onRotate" text="Rotate" />
+                        <MenuItem fx:id="restoreOriginal" disable="true" mnemonicParsing="false" onAction="#onRestore" text="Restore orginal image" />
                     </items>
                 </Menu>
             </menus>

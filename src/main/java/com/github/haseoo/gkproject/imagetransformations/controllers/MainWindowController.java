@@ -60,14 +60,14 @@ public class MainWindowController {
         ResizeDialogController controller = JavaFXUtils.<ResizeDialogController>displayInputDialog(RESIZE_DIALOG_FXML_PATH);
         controller
                 .getScaleRatio()
-                .ifPresent(ratio -> {
-                    controller.getAlgorithm().ifPresent(function -> {
-                        currentImage = function.apply(currentImage, ratio);
-                        rotatableImage = function.apply(rotatableImage, ratio);
-                        imageView.setImage(currentImage);
+                .ifPresent(ratio -> controller
+                        .getAlgorithm()
+                        .ifPresent(function -> {
+                    currentImage = function.apply(currentImage, ratio);
+                    rotatableImage = function.apply(rotatableImage, ratio);
+                    imageView.setImage(currentImage);
 
-                    });
-                });
+                }));
     }
 
     @FXML
