@@ -29,7 +29,7 @@ public class ImageResize {
         return createImage(newDimensions, point -> {
             Pair<Double> diff = new Pair<>(point.getX() * ratio.getX() - (int) (point.getX() * ratio.getX()),
                     point.getY() * ratio.getY() - (int) (point.getY() * ratio.getY()));
-            Pair<Integer> first = new Pair<>((int) (point.getX() * ratio.getX()), (int)(point.getY() * ratio.getY()));
+            Pair<Integer> first = new Pair<>((int) (point.getX() * ratio.getX()), (int) (point.getY() * ratio.getY()));
             Pair<Integer> second = getSecondPoint(oldDimensions, first);
             return interpolateColor(source, diff, first, second);
         });

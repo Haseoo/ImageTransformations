@@ -63,11 +63,11 @@ public class MainWindowController {
                 .ifPresent(ratio -> controller
                         .getAlgorithm()
                         .ifPresent(function -> {
-                    currentImage = function.apply(currentImage, ratio);
-                    rotatableImage = function.apply(rotatableImage, ratio);
-                    imageView.setImage(currentImage);
+                            currentImage = function.apply(currentImage, ratio);
+                            rotatableImage = function.apply(rotatableImage, ratio);
+                            imageView.setImage(currentImage);
 
-                }));
+                        }));
     }
 
     @FXML
